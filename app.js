@@ -1,3 +1,6 @@
+//task 1
+console.log('%c Task 1', 'color: blue; font-size: 1.5rem;');
+
 const arr = [ 
     {
         name : "John" 
@@ -212,7 +215,7 @@ function addNumberOfFieldToNumberOfArr(arrWithMainNumber, arrWithAddNumber) {
     return arrayWithAddedNumberArray;
 }
 
-function printAllTOLog() {
+function printAllToLogTask1() {
     console.log('filtredArray', filtredArray);
     console.log('task 1.1', 'requiredValue', checkObjOnRequired(fields));
     console.log('task 1.2', helloMessage);
@@ -222,15 +225,56 @@ function printAllTOLog() {
     console.log('AddedNumberArray', addNumberOfFieldToNumberOfArr(allNumberObjArray, addedNumber));
 }
 
-printAllTOLog();
+printAllToLogTask1();
 
-// 2)
-// const arrOfNums = [ [23 , 32 ,15 , 18] , [13 ,31 ,23 ,32 ] , [“Hello world”] , 23 ];
+// task 2
+console.log('%c Task 2', 'color: yellow; font-size: 1.5rem;');
 
-// 2.1) Вырезать arrOfNums первый(0) и второй(1) элемент из массива и сформировать из них новы массив , например : kek
-// 2.2) В массиве kek -> не должно быть одинаковых чисел , можно создать новый массив .
-// 2.3) Массив отсортирован в порядке возраст.
-// 2.4) Массив отсортирован в порядке уб.
-// 2.5) Добавить в массив -23 в конец массива и -13 в начало .
-// 2.5.1) Вывести в консоль массив с отри. числами.
-// 2.6) По итогу : вывести массив у которого нет отриц. чисел .
+const arrOfNums = [ [23 , 32 ,15 , 18] , [13 ,31 ,23 ,32 ] , ["Hello world"] , 23 ];
+
+function kekArrayManipulation(mainArr) {
+    const kek = mainArr.slice(0, 2);
+    
+    const kekValue = _.flatten(kek);
+    
+    const uniqKekValue = _.uniq(kekValue);
+    
+    const uniqKekValueCopyOne = _.uniq(kekValue);
+    const uniqKekValueAscending = uniqKekValueCopyOne.sort();
+    
+    const uniqKekValueCopyTwo = _.uniq(kekValue);
+    const uniqKekValueDescending = uniqKekValueCopyTwo.sort(function (a, b) {
+        return b - a;
+    });
+    
+    let arrayWithNewNumber = uniqKekValue;
+    arrayWithNewNumber = [-13, ...arrayWithNewNumber, -23];
+    
+    // const arrayWithNewNumber = uniqKekValue;
+    // arrayWithNewNumber.unshift(-13);
+    // arrayWithNewNumber.push(-23);
+    
+    const arrayWithNegativeNumber = arrayWithNewNumber.filter(function (number) {
+        return number < 0;
+    });
+    
+    const arrayWithoutNegativeNumber = arrayWithNewNumber.filter(function (number) {
+        return number > 0;
+    });
+
+    function printAllToLogTask2() {
+        console.log('arrOfNums', arrOfNums);
+        console.log('kek', kek);
+        console.log('kekValue', kekValue);
+        console.log('uniqKekValue', uniqKekValue);
+        console.log('uniqKekValueAscending', uniqKekValueAscending);
+        console.log('uniqKekValueDescending', uniqKekValueDescending);
+        console.log('arrayWithNewNumber', arrayWithNewNumber);
+        console.log('arrayWithNegativeNumber', arrayWithNegativeNumber);
+        console.log('arrayWithoutNegativeNumber', arrayWithoutNegativeNumber);
+    }
+
+    printAllToLogTask2();
+}
+
+kekArrayManipulation(arrOfNums);
