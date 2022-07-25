@@ -66,7 +66,6 @@ arrayWithcurrentObjectValue.forEach(function (elem) {
 
 let currentObjNumbers = currentObjValue.map(function (elem) {
     if (_.isNaN(+elem)) {
-        console.log('task 1.2', elem);
         helloMessage = elem;
     } else {
         elem = parseInt(elem);
@@ -80,6 +79,46 @@ let sumAllCurrentObjNumber = currentObjNumbers.reduce(function (previousValue, c
     return previousValue + currentValue;
 }, initialValue);
 
+let arrayWithFields = filtredArray.filter(function (elem) {
+    if (_.isArray(elem)) {
+        return elem;
+    }
+});
+
+arrayWithFields.forEach(function (elem) {
+    elem.forEach(function (item) {
+        arrayWithFields = [...arrayWithFields, item];
+    });
+});
+arrayWithFields.shift();
+
+let fields = arrayWithFields.filter(function (elem) {
+    if (_.isObject(elem)) {
+        return elem;
+    }
+});
+
+let requiredValue;
+Object.keys(fields).forEach(function (key) {
+    let value = fields[key];
+    Object.keys(value).forEach(function (key) {
+        let valueObj = value[key];
+        if (_.isObject(valueObj)) {
+            Object.keys(valueObj).forEach(function (item) {
+                let itemValue = valueObj[item];
+                if (_.isObject(itemValue)) {
+                    Object.keys(itemValue).forEach(function (requiredItemKey) {
+                        let requiredItemValue = itemValue[requiredItemKey];
+                        if (requiredItemKey === 'required') {
+                            requiredValue = requiredItemValue;
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
 console.log('almostFiltredArray', almostFiltredArray);
 console.log('filtredArray', filtredArray);
 console.log('currentObjectInObject', currentObjectInObject);
@@ -88,6 +127,9 @@ console.log('currentObjValue', currentObjValue);
 console.log('task 1.2', helloMessage);
 console.log('currentObjNumbers', currentObjNumbers);
 console.log('task 1.3', sumAllCurrentObjNumber);
+console.log('arrayWithFields', arrayWithFields);
+console.log('fields', fields);
+console.log('requiredValue', requiredValue);
 
 
 // 1.1) Вывести в консоль свойство required .
