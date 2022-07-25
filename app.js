@@ -99,25 +99,17 @@ let fields = arrayWithFields.filter(function (elem) {
 });
 
 let requiredValue;
-Object.keys(fields).forEach(function (key) {
-    let value = fields[key];
-    Object.keys(value).forEach(function (key) {
-        let valueObj = value[key];
-        if (_.isObject(valueObj)) {
-            Object.keys(valueObj).forEach(function (item) {
-                let itemValue = valueObj[item];
-                if (_.isObject(itemValue)) {
-                    Object.keys(itemValue).forEach(function (requiredItemKey) {
-                        let requiredItemValue = itemValue[requiredItemKey];
-                        if (requiredItemKey === 'required') {
-                            requiredValue = requiredItemValue;
-                        }
-                    });
-                }
-            });
+function checkObjOnRequired(obj) {
+    Object.keys(obj).forEach(function (key) {
+        let value = obj[key];
+        if (key === 'required') {
+            requiredValue = value;
+        } else {
+            checkObjOnRequired(value);
         }
     });
-});
+    return requiredValue;
+}
 
 console.log('almostFiltredArray', almostFiltredArray);
 console.log('filtredArray', filtredArray);
@@ -129,10 +121,10 @@ console.log('currentObjNumbers', currentObjNumbers);
 console.log('task 1.3', sumAllCurrentObjNumber);
 console.log('arrayWithFields', arrayWithFields);
 console.log('fields', fields);
-console.log('requiredValue', requiredValue);
+console.log('task 1.1', 'requiredValue', checkObjOnRequired(fields));
 
 
-// 1.1) Вывести в консоль свойство required .
+//* 1.1) Вывести в консоль свойство required .
 //* 1.2) Получить “Hello world” из currentObject .
 //* 1.3) Сложить все значения которые можно в currentObject
 // 1.4) Написать функцию которая будет 23 из fields добавлять ко всем числам что лежат в массиве arr .
